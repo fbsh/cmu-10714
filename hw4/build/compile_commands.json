@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/fbsh/new/hw4/build",
+  "command": "/usr/bin/g++  -Dndarray_backend_cpu_EXPORTS -isystem /home/fbsh/miniconda3/include/python3.8 -isystem /home/fbsh/miniconda3/lib/python3.8/site-packages/pybind11/include  -std=c++11 -O2 -march=native  -g -fPIC -fvisibility=hidden   -o CMakeFiles/ndarray_backend_cpu.dir/src/ndarray_backend_cpu.cc.o -c /home/fbsh/new/hw4/src/ndarray_backend_cpu.cc",
+  "file": "/home/fbsh/new/hw4/src/ndarray_backend_cpu.cc"
+}
+]
