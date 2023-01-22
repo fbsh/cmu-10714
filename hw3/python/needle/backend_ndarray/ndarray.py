@@ -241,7 +241,11 @@ class NDArray:
         """
 
         ### BEGIN YOUR SOLUTION
+<<<<<<< HEAD
         return self.as_strided(new_shape,self.compact_strides(new_shape))
+=======
+        raise NotImplementedError()
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
         ### END YOUR SOLUTION
 
     def permute(self, new_axes):
@@ -264,6 +268,7 @@ class NDArray:
         """
 
         ### BEGIN YOUR SOLUTION
+<<<<<<< HEAD
         shape = []
         for i in new_axes:
             shape.append(self.shape[i])
@@ -275,6 +280,9 @@ class NDArray:
         strides = tuple(strides)
 
         return self.as_strided(shape,strides)
+=======
+        raise NotImplementedError()
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
         ### END YOUR SOLUTION
 
     def broadcast_to(self, new_shape):
@@ -295,6 +303,7 @@ class NDArray:
         """
 
         ### BEGIN YOUR SOLUTION
+<<<<<<< HEAD
         assert (len(new_shape) == len(self.shape))
         for i in range(len(new_shape)):
             if self.shape[i]!=1:
@@ -311,6 +320,9 @@ class NDArray:
         return self.as_strided(new_shape,strides)
 
 
+=======
+        raise NotImplementedError()
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
         ### END YOUR SOLUTION
 
     ### Get and set elements
@@ -321,7 +333,11 @@ class NDArray:
         if start == None:
             start = 0
         if start < 0:
+<<<<<<< HEAD
             start = self.shape[dim] + start
+=======
+            start = self.shape[dim]
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
         if stop == None:
             stop = self.shape[dim]
         if stop < 0:
@@ -373,6 +389,7 @@ class NDArray:
         assert len(idxs) == self.ndim, "Need indexes equal to number of dimensions"
 
         ### BEGIN YOUR SOLUTION
+<<<<<<< HEAD
         offset = 0
         strides = []
         shape = []
@@ -385,6 +402,9 @@ class NDArray:
             tuple(shape), strides=tuple(strides), device=self.device, handle=self._handle, offset=offset
         )
         
+=======
+        raise NotImplementedError()
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
         ### END YOUR SOLUTION
 
     def __setitem__(self, idxs, other):
@@ -531,7 +551,11 @@ class NDArray:
                 )
 
             t = self.device.__tile_size__
+<<<<<<< HEAD
             a = tile(self.compact(), t).compact() 
+=======
+            a = tile(self.compact(), t).compact()
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
             b = tile(other.compact(), t).compact()
             out = NDArray.make((a.shape[0], b.shape[1], t, t), device=self.device)
             self.device.matmul_tiled(a._handle, b._handle, out._handle, m, n, p)

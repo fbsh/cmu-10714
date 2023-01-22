@@ -44,6 +44,7 @@ void Fill(AlignedArray* out, scalar_t val) {
 }
 
 
+<<<<<<< HEAD
 bool IncreaseIndices(std::vector<uint32_t>& indices, const std::vector<uint32_t>& shape) {
   for (auto i = 0; i < indices.size(); ++i) {
     auto idx = indices.size() - i - 1;
@@ -63,6 +64,9 @@ void PrintVector(const std::vector<uint32_t>& x, const std::string& name) {
     fprintf(stderr, "%u ", x[i]);
   fprintf(stderr, "\n");
 }
+=======
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 void Compact(const AlignedArray& a, AlignedArray* out, std::vector<uint32_t> shape,
              std::vector<uint32_t> strides, size_t offset) {
@@ -81,6 +85,7 @@ void Compact(const AlignedArray& a, AlignedArray* out, std::vector<uint32_t> sha
    *  function will implement here, so we won't repeat this note.)
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
  
   std::vector<uint32_t> indices;
   indices.resize(shape.size(), 0);
@@ -98,6 +103,8 @@ void Compact(const AlignedArray& a, AlignedArray* out, std::vector<uint32_t> sha
     end = IncreaseIndices(indices, shape);
     //PrintVector(indices, "idx:");
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -115,6 +122,7 @@ void EwiseSetitem(const AlignedArray& a, AlignedArray* out, std::vector<uint32_t
    *   offset: offset of the *out* array (not a, which has zero offset, being compact)
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   std::vector<uint32_t> indices;
   indices.resize(shape.size(), 0);
   //PrintVector(shape, "shape");
@@ -130,6 +138,8 @@ void EwiseSetitem(const AlignedArray& a, AlignedArray* out, std::vector<uint32_t
     end = IncreaseIndices(indices, shape);
     //PrintVector(indices, "idx:");
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -151,6 +161,7 @@ void ScalarSetitem(const size_t size, scalar_t val, AlignedArray* out, std::vect
    */
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
 
   std::vector<uint32_t> indices;
   indices.resize(shape.size(), 0);
@@ -168,6 +179,8 @@ void ScalarSetitem(const size_t size, scalar_t val, AlignedArray* out, std::vect
     cnt ++;
     //PrintVector(indices, "idx:");
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -212,6 +225,7 @@ void ScalarAdd(const AlignedArray& a, scalar_t val, AlignedArray* out) {
  */
 
 /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
 #define EWISEOP(name, op) \
   void Ewise##name(const AlignedArray& a, const AlignedArray& b, AlignedArray* out) { \
     for (size_t i = 0; i < a.size; i++)                                          \
@@ -274,6 +288,8 @@ EWISECAL(Log, std::log)
 EWISECAL(Exp, std::exp)
 EWISECAL(Tanh, std::tanh)
 
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 /// END YOUR SOLUTION
 
@@ -293,6 +309,7 @@ void Matmul(const AlignedArray& a, const AlignedArray& b, AlignedArray* out, uin
    */
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   //fprintf(stderr, "%zu %zu\n", out->size, out->size * ELEM_SIZE);
   memset(out->ptr, 0, out->size * ELEM_SIZE);
   for (auto i = 0; i < m; ++i) {
@@ -303,6 +320,9 @@ void Matmul(const AlignedArray& a, const AlignedArray& b, AlignedArray* out, uin
       }
     } 
   }
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
@@ -332,6 +352,7 @@ inline void AlignedDot(const float* __restrict__ a,
   out = (float*)__builtin_assume_aligned(out, TILE * ELEM_SIZE);
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   for (auto i = 0; i < TILE; ++i) {
     for (auto j = 0; j < TILE; ++j) {
       float e = a[i*TILE + j];
@@ -340,6 +361,8 @@ inline void AlignedDot(const float* __restrict__ a,
       }
     }
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -366,6 +389,7 @@ void MatmulTiled(const AlignedArray& a, const AlignedArray& b, AlignedArray* out
    *
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   //fprintf(stderr, "mnp: %u %u %u\n", m, n, p);
   memset(out->ptr, 0, out->size * ELEM_SIZE);
   auto M = m/TILE;
@@ -381,6 +405,9 @@ void MatmulTiled(const AlignedArray& a, const AlignedArray& b, AlignedArray* out
       }
     }
   }  
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
@@ -395,6 +422,7 @@ void ReduceMax(const AlignedArray& a, AlignedArray* out, size_t reduce_size) {
    */
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   size_t cnt = 0;
   for (size_t i = 0; i < a.size; i += reduce_size) {
     auto maximum = a.ptr[i];
@@ -403,6 +431,8 @@ void ReduceMax(const AlignedArray& a, AlignedArray* out, size_t reduce_size) {
     }
     out->ptr[cnt++] = maximum;
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -418,6 +448,7 @@ void ReduceSum(const AlignedArray& a, AlignedArray* out, size_t reduce_size) {
    */
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   size_t cnt = 0;
   for (size_t i = 0; i < a.size; i += reduce_size) {
     auto sum = a.ptr[i];
@@ -426,6 +457,8 @@ void ReduceSum(const AlignedArray& a, AlignedArray* out, size_t reduce_size) {
     }
     out->ptr[cnt++] = sum;
   }
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -468,6 +501,7 @@ PYBIND11_MODULE(ndarray_backend_cpu, m) {
   m.def("ewise_add", EwiseAdd);
   m.def("scalar_add", ScalarAdd);
 
+<<<<<<< HEAD
   m.def("ewise_mul", EwiseMul);
   m.def("scalar_mul", ScalarMul);
   m.def("ewise_div", EwiseDiv);
@@ -484,6 +518,24 @@ PYBIND11_MODULE(ndarray_backend_cpu, m) {
   m.def("ewise_log", EwiseLog);
   m.def("ewise_exp", EwiseExp);
   m.def("ewise_tanh", EwiseTanh);
+=======
+  // m.def("ewise_mul", EwiseMul);
+  // m.def("scalar_mul", ScalarMul);
+  // m.def("ewise_div", EwiseDiv);
+  // m.def("scalar_div", ScalarDiv);
+  // m.def("scalar_power", ScalarPower);
+
+  // m.def("ewise_maximum", EwiseMaximum);
+  // m.def("scalar_maximum", ScalarMaximum);
+  // m.def("ewise_eq", EwiseEq);
+  // m.def("scalar_eq", ScalarEq);
+  // m.def("ewise_ge", EwiseGe);
+  // m.def("scalar_ge", ScalarGe);
+
+  // m.def("ewise_log", EwiseLog);
+  // m.def("ewise_exp", EwiseExp);
+  // m.def("ewise_tanh", EwiseTanh);
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
   m.def("matmul", Matmul);
   m.def("matmul_tiled", MatmulTiled);

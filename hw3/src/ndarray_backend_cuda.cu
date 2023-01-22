@@ -99,6 +99,7 @@ __global__ void CompactKernel(const scalar_t* a, scalar_t* out, size_t size, Cud
   size_t gid = blockIdx.x * blockDim.x + threadIdx.x;
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   if (gid < size) {
     uint32_t idx = offset;
     size_t v = gid;
@@ -110,6 +111,9 @@ __global__ void CompactKernel(const scalar_t* a, scalar_t* out, size_t size, Cud
     }
     out[gid] = a[idx];
   }
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
@@ -137,6 +141,7 @@ void Compact(const CudaArray& a, CudaArray* out, std::vector<uint32_t> shape,
 }
 
 
+<<<<<<< HEAD
 __global__ void EwiseSetItemKernel(const scalar_t* a, scalar_t* out, size_t size, CudaVec shape,
                               CudaVec strides, size_t offset) {
   size_t gid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -152,6 +157,9 @@ __global__ void EwiseSetItemKernel(const scalar_t* a, scalar_t* out, size_t size
     out[idx] = a[gid];
   }        
 }
+=======
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 void EwiseSetitem(const CudaArray& a, CudaArray* out, std::vector<uint32_t> shape,
                   std::vector<uint32_t> strides, size_t offset) {
@@ -167,13 +175,17 @@ void EwiseSetitem(const CudaArray& a, CudaArray* out, std::vector<uint32_t> shap
    *   offset: offset of the *out* array (not a, which has zero offset, being compact)
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   CudaDims dim = CudaOneDim(a.size);
   EwiseSetItemKernel<<<dim.grid, dim.block>>>(a.ptr, out->ptr, a.size, VecToCuda(shape),
                                               VecToCuda(strides), offset);
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
 
+<<<<<<< HEAD
 __global__ void ScalarSetItemKernel(scalar_t val, scalar_t* out, size_t size, CudaVec shape,
                               CudaVec strides, size_t offset) {
   size_t gid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -189,6 +201,10 @@ __global__ void ScalarSetItemKernel(scalar_t val, scalar_t* out, size_t size, Cu
     out[idx] = val;
   }        
 }
+=======
+
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 void ScalarSetitem(size_t size, scalar_t val, CudaArray* out, std::vector<uint32_t> shape,
                    std::vector<uint32_t> strides, size_t offset) {
@@ -206,9 +222,13 @@ void ScalarSetitem(size_t size, scalar_t val, CudaArray* out, std::vector<uint32
    *   offset: offset of the out array
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   CudaDims dim = CudaOneDim(size);
   ScalarSetItemKernel<<<dim.grid, dim.block>>>(val, out->ptr, size, VecToCuda(shape),
                                               VecToCuda(strides), offset);
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
@@ -263,6 +283,7 @@ void ScalarAdd(const CudaArray& a, scalar_t val, CudaArray* out) {
  */
 
 /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
 #define EwiseKernel(name, op) \
   __global__ void EwiseKernel##name(const scalar_t* a, const scalar_t* b, scalar_t* out, size_t size) { \
     size_t gid = blockIdx.x * blockDim.x + threadIdx.x;                                                \
@@ -382,12 +403,15 @@ EwiseCalKernel(Tanh, std::tanh)
 EWISECAL(Log)
 EWISECAL(Exp)
 EWISECAL(Tanh)
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 /// END YOUR SOLUTION
 
 ////////////////////////////////////////////////////////////////////////////////
 // Elementwise and scalar operations
 ////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
  
 // A  m*n
 // B  n*p
@@ -461,6 +485,9 @@ __global__ void MatmulKernel(const scalar_t* A, const scalar_t* B, scalar_t* C, 
   }
   
 }
+=======
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 
 void Matmul(const CudaArray& a, const CudaArray& b, CudaArray* out, uint32_t M, uint32_t N,
@@ -488,12 +515,15 @@ void Matmul(const CudaArray& a, const CudaArray& b, CudaArray* out, uint32_t M, 
    */
 
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
 
   const size_t BS = 4;
   const size_t SL = 32;
   dim3 block(BS, BS, 1);
 	dim3 grid((P + BS - 1) / BS, (M + BS - 1) / BS, 1);
   MatmulKernel<BS, SL> <<<grid, block>>>(a.ptr, b.ptr, out->ptr, M, N, P);
+=======
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   
   /// END YOUR SOLUTION
 }
@@ -502,6 +532,7 @@ void Matmul(const CudaArray& a, const CudaArray& b, CudaArray* out, uint32_t M, 
 // Max and sum reductions
 ////////////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 __global__ void ReduceMaxKernel(const scalar_t* a, scalar_t* out, size_t reduce_size) {
   size_t index = threadIdx.x * reduce_size; 
   scalar_t ret = a[index];
@@ -510,6 +541,9 @@ __global__ void ReduceMaxKernel(const scalar_t* a, scalar_t* out, size_t reduce_
   }
   out[threadIdx.x] = ret;
 }
+=======
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 void ReduceMax(const CudaArray& a, CudaArray* out, size_t reduce_size) {
   /**
@@ -522,11 +556,16 @@ void ReduceMax(const CudaArray& a, CudaArray* out, size_t reduce_size) {
    *   redice_size: size of the dimension to reduce over
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   ReduceMaxKernel<<<1, out->size>>>(a.ptr, out->ptr, reduce_size);
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
 
+<<<<<<< HEAD
 __global__ void ReduceSumKernel(const scalar_t* a, scalar_t* out, size_t reduce_size) {
   size_t index = threadIdx.x * reduce_size; 
   scalar_t ret = a[index];
@@ -535,6 +574,9 @@ __global__ void ReduceSumKernel(const scalar_t* a, scalar_t* out, size_t reduce_
   }
   out[threadIdx.x] = ret;
 }
+=======
+
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
 void ReduceSum(const CudaArray& a, CudaArray* out, size_t reduce_size) {
   /**
@@ -547,7 +589,11 @@ void ReduceSum(const CudaArray& a, CudaArray* out, size_t reduce_size) {
    *   redice_size: size of the dimension to reduce over
    */
   /// BEGIN YOUR SOLUTION
+<<<<<<< HEAD
   ReduceSumKernel<<<1, out->size>>>(a.ptr, out->ptr, reduce_size);
+=======
+  
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
   /// END YOUR SOLUTION
 }
 
@@ -599,6 +645,7 @@ PYBIND11_MODULE(ndarray_backend_cuda, m) {
   m.def("ewise_add", EwiseAdd);
   m.def("scalar_add", ScalarAdd);
 
+<<<<<<< HEAD
   m.def("ewise_mul", EwiseMul);
   m.def("scalar_mul", ScalarMul);
   m.def("ewise_div", EwiseDiv);
@@ -615,6 +662,24 @@ PYBIND11_MODULE(ndarray_backend_cuda, m) {
   m.def("ewise_log", EwiseLog);
   m.def("ewise_exp", EwiseExp);
   m.def("ewise_tanh", EwiseTanh);
+=======
+  // m.def("ewise_mul", EwiseMul);
+  // m.def("scalar_mul", ScalarMul);
+  // m.def("ewise_div", EwiseDiv);
+  // m.def("scalar_div", ScalarDiv);
+  // m.def("scalar_power", ScalarPower);
+
+  // m.def("ewise_maximum", EwiseMaximum);
+  // m.def("scalar_maximum", ScalarMaximum);
+  // m.def("ewise_eq", EwiseEq);
+  // m.def("scalar_eq", ScalarEq);
+  // m.def("ewise_ge", EwiseGe);
+  // m.def("scalar_ge", ScalarGe);
+
+  // m.def("ewise_log", EwiseLog);
+  // m.def("ewise_exp", EwiseExp);
+  // m.def("ewise_tanh", EwiseTanh);
+>>>>>>> 78af4ac7623141e753891621412b053e8ef603ef
 
   m.def("matmul", Matmul);
 
